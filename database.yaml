@@ -1,0 +1,15 @@
+services:
+  database:
+    container_name: servicebot_database
+    image: mariadb
+    command: "--default-authentication-plugin=mysql_native_password"
+    ports:
+      - "${PORT}:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_DATABASE: "${DATABASE}"
+      MYSQL_ROOT_USER: "${DBUSER}"
+      MYSQL_ROOT_PASSWORD: "${PASSWORD}"
+    env_file:
+      - .env
